@@ -67,7 +67,10 @@ function App() {
       
       <div className="flex-1 flex flex-col lg:flex-row gap-6 p-6 max-w-6xl mx-auto w-full">
         <div className="w-full lg:w-80 flex-shrink-0">
-          <CustomizerUI materials={materials} onMaterialChange={handleMaterialChange} />
+          <CustomizerUI 
+            materials={materials} 
+            onMaterialChange={handleMaterialChange}
+          />
         </div>
         
         <div className="flex-1 min-h-[600px] bg-white rounded-lg border shadow-sm overflow-hidden">

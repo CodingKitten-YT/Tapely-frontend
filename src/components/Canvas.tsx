@@ -5,9 +5,11 @@ import { Materials } from '../App'
 
 interface CanvasComponentProps {
   materials: Materials;
+  sideAImage?: string;
+  sideBImage?: string;
 }
 
-const CanvasComponent: React.FC<CanvasComponentProps> = ({ materials }) => {
+const CanvasComponent: React.FC<CanvasComponentProps> = ({ materials, sideAImage, sideBImage }) => {
   return (
     <Canvas
       camera={{ position: [180, 180, 20], fov: 50 }}

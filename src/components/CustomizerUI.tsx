@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Label } from '@radix-ui/react-label';
 import { Separator } from '@radix-ui/react-separator';
 import { 
-  Palette, 
   ChevronDown,
-  ChevronRight
+  ChevronRight,
 } from 'lucide-react';
 import { Material, Materials } from '../App';
 import Slider from './ui/Slider';
@@ -14,7 +13,10 @@ interface CustomizerUIProps {
   onMaterialChange: (materialName: keyof Materials, property: keyof Material, value: string | number) => void;
 }
 
-const CustomizerUI: React.FC<CustomizerUIProps> = ({ materials, onMaterialChange }) => {
+const CustomizerUI: React.FC<CustomizerUIProps> = ({ 
+  materials, 
+  onMaterialChange
+}) => {
   const [expandedMaterial, setExpandedMaterial] = useState<string | null>('SIDEA');
 
   const materialOptions = [
@@ -87,7 +89,7 @@ const CustomizerUI: React.FC<CustomizerUIProps> = ({ materials, onMaterialChange
   };
 
   return (
-    <div className="bg-white rounded-lg border shadow-sm p-6">
+    <div className="bg-white rounded-lg border shadow-sm p-6 max-h-screen overflow-y-auto">
       <div className="mb-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-1">Materials</h2>
         <p className="text-sm text-gray-600">Customize your cassette</p>
@@ -168,39 +170,44 @@ const CustomizerUI: React.FC<CustomizerUIProps> = ({ materials, onMaterialChange
                       </div>
                     </div>
 
-                    {/* Metalness */}
-                    <div>
-                      <Label className="flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
-                        <span>Metalness</span>
-                        <span className="text-xs text-gray-500">
-                          {Math.round(materials[option.key].metalness * 100)}%
-                        </span>
-                      </Label>
-                      <Slider
-                        value={materials[option.key].metalness}
-                        onValueChange={(value) => onMaterialChange(option.key, 'metalness', value)}
-                        min={0}
-                        max={1}
-                        step={0.01}
-                      />
-                    </div>
+                    {/* Only show metalness/roughness for BASE and ACCENTS */}
+                    {!option.hasImage && (
+                      <>
+                        {/* Metalness */}
+                        <div>
+                          <Label className="flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
+                            <span>Metalness</span>
+                            <span className="text-xs text-gray-500">
+                              {Math.round(materials[option.key].metalness * 100)}%
+                            </span>
+                          </Label>
+                          <Slider
+                            value={materials[option.key].metalness}
+                            onValueChange={(value) => onMaterialChange(option.key, 'metalness', value)}
+                            min={0}
+                            max={1}
+                            step={0.01}
+                          />
+                        </div>
 
-                    {/* Roughness */}
-                    <div>
-                      <Label className="flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
-                        <span>Roughness</span>
-                        <span className="text-xs text-gray-500">
-                          {Math.round(materials[option.key].roughness * 100)}%
-                        </span>
-                      </Label>
-                      <Slider
-                        value={materials[option.key].roughness}
-                        onValueChange={(value) => onMaterialChange(option.key, 'roughness', value)}
-                        min={0}
-                        max={1}
-                        step={0.01}
-                      />
-                    </div>
+                        {/* Roughness */}
+                        <div>
+                          <Label className="flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
+                            <span>Roughness</span>
+                            <span className="text-xs text-gray-500">
+                              {Math.round(materials[option.key].roughness * 100)}%
+                            </span>
+                          </Label>
+                          <Slider
+                            value={materials[option.key].roughness}
+                            onValueChange={(value) => onMaterialChange(option.key, 'roughness', value)}
+                            min={0}
+                            max={1}
+                            step={0.01}
+                          />
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
