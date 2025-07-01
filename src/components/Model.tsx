@@ -42,7 +42,7 @@ export default function Model({ materials: propMaterials }: ModelProps) {
 
   useLayoutEffect(() => {
     clonedScene.traverse(node => {
-      if (node.isMesh && node.material) {
+      if (node instanceof THREE.Mesh && node.material) {
         switch (node.material.name) {
           case 'SIDEA':
             node.material = materials.SIDEA
@@ -66,4 +66,4 @@ export default function Model({ materials: propMaterials }: ModelProps) {
   return <primitive object={clonedScene} />
 }
 
-useGLTF.preload('/src/assets/tape2.glb')
+useGLTF.preload('/src/assets/tape3.glb')
